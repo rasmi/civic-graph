@@ -18,6 +18,15 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
     $scope.toggleSettings = function() {
         $scope.settingsEnabled = !$scope.settingsEnabled;
     }
+    $scope.isIndivual = function(ent) {
+        if (ent) {
+            if (ent.type === "Individual") {
+                return false;
+            } else{
+                return true;
+            };    
+        };
+    };
     $scope.getURLID = function() {
         var entityID = $location.search().entityID;
         if (entityID) {entityID = parseInt(entityID);};
