@@ -102,13 +102,13 @@
     </div>
     <div>Who do they fund via grants?
         <div ng-repeat='grant in editEntity.grants_given'>
-            <input type='text' id="ip-text" class='form-control' ng-model='grant.entity' typeahead='entity.name as entity.name for entity in entities | filter:{name: $viewValue} | limitTo:8' typeahead-on-select='setFundingConnection($item, grant)' ng-change='addFundingConnection(editEntity.grants_given)' typeahead-editable='false' placeholder='Fundee'>
+            <input type='text' class='form-control' ng-model='grant.entity' typeahead='entity.name as entity.name for entity in entities | filter:{name: $viewValue} | limitTo:8' typeahead-on-select='setFundingConnection($item, grant)' ng-change='addFundingConnection(editEntity.grants_given)' typeahead-editable='false' placeholder='Fundee'>
             <div>
                 <div class='input-group'>
                 <span class='input-group-addon'>$</span>
-                <input type='number' class='form-control' ng-model='grant.amount' id="amount" placeholder='Amount'>
+                <input type='number' class='form-control' ng-model='grant.amount' class="amount" placeholder='Amount'>
                 
-                <input type='number' class='form-control' ng-model='grant.year' id="year" placeholder='Year'>
+                <input type='number' class='form-control' ng-model='grant.year' class="year" placeholder='Year'>
                 </div>
             </div>
             
@@ -121,9 +121,9 @@
             <div>
                 <div class='input-group'>
                 <span class='input-group-addon'>$</span>
-                <input type='number' class='form-control' ng-model='investment.amount' id="amount" placeholder='Amount'>
+                <input type='number' class='form-control' ng-model='investment.amount' class="amount" placeholder='Amount'>
                 
-                <input type='number' class='form-control' ng-model='investment.year' id="year" placeholder='Year'>
+                <input type='number' class='form-control' ng-model='investment.year' class="year" placeholder='Year'>
                 </div>
             </div>
             
@@ -135,9 +135,9 @@
             <div>
                 <div class='input-group'>
                 <span class='input-group-addon'>$</span>
-                <input type='number' class='form-control' ng-model='revenue.amount' id="amount" placeholder='Amount' ng-change='addFinance(editEntity.revenues)'>
+                <input type='number' class='form-control' ng-model='revenue.amount' class="amount" placeholder='Amount' ng-change='addFinance(editEntity.revenues)'>
                 
-                <input type='number' class='form-control' ng-model='revenue.year' id="year" placeholder='Year' ng-change='addFinance(editEntity.revenues)'>
+                <input type='number' class='form-control' ng-model='revenue.year' class="year" placeholder='Year' ng-change='addFinance(editEntity.revenues)'>
                 </div>
             </div>
             
@@ -150,9 +150,9 @@
 
                 <div class='input-group'>
                 <span class='input-group-addon'>$</span>
-                <input type='number' class='form-control' ng-model='expense.amount' id="amount" placeholder='Amount' ng-change='addFinance(editEntity.expenses)'>
+                <input type='number' class='form-control' ng-model='expense.amount' class="amount" placeholder='Amount' ng-change='addFinance(editEntity.expenses)'>
                 
-                <input type='number' class='form-control' ng-model='expense.year' id="year" placeholder='Year' ng-change='addFinance(editEntity.expenses)'>
+                <input type='number' class='form-control' ng-model='expense.year' class="year" placeholder='Year' ng-change='addFinance(editEntity.expenses)'>
                 </div>
             </div>
             

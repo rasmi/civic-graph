@@ -1,11 +1,11 @@
 /*#ip-text{
   padding-top: 5px;
 }*/
-#amount{
+.amount{
   display: inline-block;
   width: 60%;
 }
-#year{
+.year{
   display: inline-block;
   width: 40%;
 }
