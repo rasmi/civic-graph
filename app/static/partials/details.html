@@ -14,7 +14,7 @@ Twitter Followers: {{currentEntity.followers | number}}<br />
 <div ng-if='currentEntity.key_people.length > 0'>
 Key Civic People:
     <ul><li ng-repeat='person in currentEntity.key_people | limitTo:itemsShown.key_people'>{{person.name}}</li></ul>
-    <a ng-if='currentEntity.key_people.length > itemsShown.key_people' ng-click="showMore('key_people')" href=''>More...</a>
+    <a ng-if='currentEntity.key_people.length > itemsShown.key_people' ng-click="showMore('key_people')">More...</a>
     <a ng-if='itemsShown.key_people > itemsShownDefault.key_people' ng-click="showLess('key_people')">Less...</a>
 </div>
 <div ng-if='currentEntity.key_people.length == 0'>
