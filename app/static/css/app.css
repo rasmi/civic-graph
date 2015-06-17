@@ -1,6 +1,7 @@
-#details-name {
-  padding-top: 0%;
+#details {
+  padding-bottom: 0.5%;
 }
+
 .add-button {
   border-color: blue;
 }
@@ -76,19 +77,17 @@ h6 {
   color: #303030;
   font-size: 14px;
   font-weight: bold;
+  text-align: center;
+  margin-bottom: -0.5%;
 }
 
-p {
+.details-panel p {
   font-family: 'Segoe UI', Frutiger, 'Frutiger Linotype', 'Dejavu Sans', 'Helvetica Neue', Arial, sans-serif;
   color: #505050;
   font-size: 14px;
   font-weight: normal;
-}
-
-#key-civic-people-img {
-  background: white url(/static/img/mini_grey_head.png) left no-repeat;
-  padding-left: 5px;
   text-align: center;
+  margin-bottom: -0.5%;
 }
 
 .edit-marker {
@@ -235,8 +234,6 @@ h2 {
 .edit-panel {
     background-color: #F9FAFA;
     float: right;
-    height: 100vh;
-    overflow: scroll;
 }
 .edit-form {
 }
@@ -348,31 +345,29 @@ h2 {
     height: 100vh;
     overflow: scroll;
 }
-
-.navLogoMobile .logoMob{
-  margin-left: 15%;
-}
-
-.navButtonMob {
+.hambDesktop {
     position: fixed;
     left: 0px;
     top: 0px;
-    width: 34px;
-    height: 34px;
-    background: none;
-    border-radius: 2px;
-    border: none;
+    width: 60px;
+    height: 60px;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
 }
 
-.glyphicon.glyphicon-align-justify {
-    font-size: 15pt;
-    color: #757171;
-}
-.glyphicon.glyphicon-chevron-up {
-    font-size: 15pt;
-    color: #757171;
+#minimizeButton{
+    z-index: 1;
+    position: fixed;
+    width: 13.5%;
+    height: 25px;
+    float: left;
 }
 
+#formRight {
+    height: 100vh;
+    overflow: scroll;
+}
 
 .network-container{
     text-align: center;
@@ -512,16 +507,24 @@ h2 {
     line-height: 20px;
 }
 
+#minimizeButtonMobile{
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    z-index: 1;
+    position: fixed;
+    width: 13.5%;
+    height: 25px;
+}
+
 .addInfoMobile {
     font-family: Verdana;
     font-weight: 800;
     width: 100%;
-    background: white;
     bottom: 0;
     position: fixed;
     z-index: 3;
-    border: 2px solid #757171;
-    color: #757171;
+    border: 2px solid lightgrey;
 }
 .addInfoDesktop {
   background  : none;
