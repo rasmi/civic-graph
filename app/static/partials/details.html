@@ -133,8 +133,8 @@ Revenue:
 <div ng-if='currentEntity.expenses.length > 0'>
 Expenses:
     <ul><li ng-repeat='expense in currentEntity.expenses'>{{expense.year}}: {{expense.amount | currency}}</li></ul>
-    <a ng-if='currentEntity.expenses.length > itemsShown.expenses' ng-click="showMore('expenses')">More</a>
-    <a ng-if='itemsShown.expenses > itemsShownDefault.expenses' ng-click="showLess('expenses')">Less</a>
+    <a ng-if='currentEntity.expenses.length > itemsShown.expenses' ng-click="showMore('expenses')">More...</a>
+    <a ng-if='itemsShown.expenses > itemsShownDefault.expenses' ng-click="showLess('expenses')">Less...</a>
 </div>
 <div ng-if='currentEntity.expenses.length == 0'>
     No known expenses information.
