@@ -115,7 +115,7 @@ p {
 
 h2 {
     font-family: Verdana;
-    color: #474747;
+    /*color: #474747;*/
     font-family: 'Segoe UI', Frutiger, 'Frutiger Linotype', 'Dejavu Sans', 'Helvetica Neue', Arial, sans-serif;
     font-size: 30px;
     /*text-shadow: 2px 2px 4px #000000;*/
@@ -239,7 +239,7 @@ h2 {
     z-index: 2;
 }
 .edit-panel {
-    background-color: #D0D0D0;
+    background-color: #ececec;
 }
 .edit-form {
 }
