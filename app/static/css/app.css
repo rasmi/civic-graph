@@ -1,3 +1,7 @@
+#details {
+  padding-bottom: 0.5%;
+}
+
 #details-name {
   padding-top: 0%;
 }
@@ -76,6 +80,8 @@ h6 {
   color: #303030;
   font-size: 14px;
   font-weight: bold;
+  text-align: center;
+  margin-bottom: -0.5%;
 }
 
 p {
@@ -83,6 +89,8 @@ p {
   color: #505050;
   font-size: 14px;
   font-weight: normal;
+  text-align: center;
+  margin-bottom: -0.5%;
 }
 
 #key-civic-people-img {
