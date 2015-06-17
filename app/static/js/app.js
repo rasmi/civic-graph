@@ -314,8 +314,6 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
         var width = bounds.width;
         var offsetScale = 8;
         var defaultnodesize = 7;
-        var rectangularScale = 2.9;
-
         var offsets = {
             'Individual': {'x': 1, 'y': 1},
             'For-Profit': {'x': 1, 'y': -1},
@@ -360,8 +358,7 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
             // console.log(e.alpha)
              if (e.alpha < 0.02) { resize();};
             _.forEach($scope.entities, function(entity) {
-                var scale = $scope.mobile ? 1 : 1;
-                entity.x += scale*offsets[entity.type].x*k
+                entity.x += offsets[entity.type].x*k
                 entity.y += offsets[entity.type].y*k
             });
 
@@ -504,7 +501,9 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
         node.on('click', click);
         node.on('dblclick', dblclick);
         svg.on('click', backgroundclick);
-
+        $scope.$on('entityChange', function() {
+            click($scope.currentEntity);
+        })
         // Only show labels on top 5 most connected entities initially.
         _.forEach(_.keys($scope.entityTypes), function(type) {
             // Find the top 5 most-connected entities.
@@ -631,7 +630,14 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
             });
             map.on('click', function() {
                 $scope.clickedEntity.entity = null;
-            })
+            });
+            $scope.$on('entityChange', function() {
+                var coordinates = $scope.currentEntity.locations.length > 0 ? _.pluck($scope.currentEntity.locations, 'coordinates') : null;
+                if (coordinates.length > 0) {
+                    map.setView(coordinates[0], 11);
+                }
+                 
+            });
         });
     });
 

@@ -40,8 +40,13 @@
 <h6>Collaborated with:</h6>
     <p ng-repeat='collaboration in currentEntity.collaborations | limitTo:itemsShown.collaborations'>{{collaboration.entity}}</p>
 
+<<<<<<< HEAD
     <p><a ng-if='currentEntity.collaborations.length > itemsShown.collaborations'ng-click="showMore('collaborations')">More...</a></p>
     <p><a ng-if='itemsShown.collaborations > itemsShownDefault.collaborations'ng-click="showLess('collaborations')">Less...</a></p>
+=======
+    <a ng-if='currentEntity.collaborations.length > itemsShown.collaborations'ng-click="showMore('collaborations')">More...</a>
+    <a ng-if='itemsShown.collaborations > itemsShownDefault.collaborations'ng-click="showLess('collaborations')">Less...</a>
+>>>>>>> 572401804d283bfc369bfcc7982f1a3b3fee368a
 </div>
 <div ng-if='currentEntity.collaborations.length == 0'>
     <h6>No known collaborations.</h6>
@@ -51,7 +56,6 @@
 <div ng-if='currentEntity.employments.length > 0'>
 <h6>Employment:</h6>
     <p ng-repeat='employment in currentEntity.employments | limitTo:itemsShown.employments'>{{employment.entity}}</p>
-
     <p><a ng-if='currentEntity.employments.length > itemsShown.employments'ng-click="showMore('employments')">More...</a></p>
     <p><a ng-if='itemsShown.employments > itemsShownDefault.employments'ng-click="showLess('employments')">Less...</a></p>
 </div>
@@ -146,7 +150,7 @@
 <p><a ng-if='itemsShown.revenues > itemsShownDefault.revenues'ng-click="showLess('revenues')">Less...</a></p>
 </div>
 <div ng-if='currentEntity.revenues.length == 0'>
-<p>No known revenue information.</p>
+    <p>No known revenue information.</p>
 </div>
 
 <!-- EXPENSES -->
@@ -157,7 +161,7 @@
 <p><a ng-if='itemsShown.expenses > itemsShownDefault.expenses' ng-click="showLess('expenses')">Less...</a></p>
 </div>
 <div ng-if='currentEntity.expenses.length == 0'>
-<p>No known expense information.</p>
+    <p>No known expense information.</p>
 </div>
 
 </div>
