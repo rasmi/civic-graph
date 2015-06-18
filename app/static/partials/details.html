@@ -22,7 +22,7 @@
 </div>
 
 <!-- KEY PEOPLE -->
-<div ng-if='isIndivual(currentEntity)'>
+<div ng-hide="currentEntity.type == 'Individual'">
     <div ng-if='currentEntity.key_people.length > 0'>
     <h6>Key Civic People:</h6>
         <p ng-repeat='person in currentEntity.key_people | limitTo:itemsShown.key_people'><a ng-href='https://www.bing.com/search?q={{person.name}} {{currentEntity.name}}' target='_blank'>{{person.name}}</a></p>
@@ -108,7 +108,7 @@ Received grants from:
 </div>
 
 <!-- INVESTMENTS RECEIVED -->
-<div ng-if='isIndivual(currentEntity)'>
+<div ng-hide="currentEntity.type != 'Individual'">
     <div ng-if='currentEntity.investments_received.length > 0'>
     Received investments from:
         <p ng-repeat='investment in currentEntity.investments_received | limitTo:itemsShown.investments_received'>{{investment.entity}}<span ng-if='investment.amount > 0'>: {{investment.amount | currency}}</span></p>
@@ -121,7 +121,7 @@ Received grants from:
     </div>
 </div>
 <!-- GRANTS GIVEN -->
-<div ng-if='isIndivual(currentEntity)'>
+<div ng-if="currentEntity.type == 'Individual'">
     <div ng-if='currentEntity.grants_given.length > 0'>
     Gave grants to:
         <p ng-repeat='grant in currentEntity.grants_given | limitTo:itemsShown.grants_given'>{{grant.entity}}<span ng-if='grant.amount > 0'>: {{grant.amount | currency}}</span></p>
@@ -145,7 +145,7 @@ Invested in:
 </div>
 
 <!-- REVENUES -->
-<div ng-if='isIndivual(currentEntity)'>
+<div ng-hide='currentEntity.type == "Individual"'>
     <div ng-if='currentEntity.revenues.length > 0'>
     Revenue:
         <p ng-repeat='revenue in currentEntity.revenues'>{{revenue.year}}: {{revenue.amount | currency}}</p>
@@ -158,7 +158,7 @@ Invested in:
     </div>
 </div>
 <!-- EXPENSES -->
-<div ng-if='isIndivual(currentEntity)'>
+<div ng-hide="currentEntity.type == 'Individual'">
     <div ng-if='currentEntity.expenses.length > 0'>
     Expense:
     <p ng-repeat='expense in currentEntity.expenses'>{{expense.year}}: {{expense.amount | currency}}</p>
