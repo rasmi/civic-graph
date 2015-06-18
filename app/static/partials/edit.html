@@ -32,17 +32,21 @@
     <label class='checkbox' ng-class="{'unchecked': !category.enabled}"><input type='checkbox' ng-model='category.enabled'></label>
     <span class='caption'>{{category.name}}</label>
     </div>
+    <h6>Company Website</h6>
     <input type='url' class='form-control' ng-model='editEntity.url' placeholder='Website'>
+    <h6>Twitter Handle</h6>
     <input type='text' class='form-control' ng-model='editEntity.twitter_handle' placeholder='@Twitter'>
-    <div ng-hide="editEntity.type=='Individual'">Number of Employees <input type='number' class='form-control' ng-model='editEntity.employees' placeholder='Employees'></div>
-    <div ng-hide="editEntity.type=='Individual'">Key Civic People?
+    <div ng-hide="editEntity.type=='Individual'"><h6>Number of Employees</h6><input type='number' class='form-control' ng-model='editEntity.employees' placeholder='Employees'></div>
+    <div ng-hide="editEntity.type=='Individual'"><h6>Key Civic People</h6>
         <input type='text'class='form-control' ng-repeat='person in editEntity.key_people' ng-model='person.name' placeholder='Name' ng-change='addKeyPerson()'>
     </div>
 
     <div><h6>Collaboration</h6>
         <div ng-repeat='collaboration in editEntity.collaborations'>
             <input type='text' class='form-control' ng-model='collaboration.entity' typeahead='entity.name as entity.name for entity in entities | filter:{name: $viewValue} | limitTo:8' typeahead-on-select='setConnection($item, collaboration)' ng-change='addConnection(editEntity.collaborations)' placeholder='Collaborator'>
+            <div class="collaboration-spacing">
             <input type='text' class='form-control details-field' ng-model='collaboration.details' placeholder='Collaboration details'>
+            </div>
         </div>
     </div>
     <div><h6>Employment</h6>
@@ -54,13 +58,13 @@
             <input type='text' class='form-control details-field' ng-model='relation.details' placeholder='Relation details'>
         </div>
     </div>
-    <div><h6>Who provides them with data?</h6>
+    <div><h6>From whom is data provided?</h6>
         <div ng-repeat='data in editEntity.data_received'>
             <input type='text' class='form-control' ng-model='data.entity' typeahead='entity.name as entity.name for entity in entities | filter:{name: $viewValue} | limitTo:8' typeahead-on-select='setConnection($item, data)' ng-change='addConnection(editEntity.data_received)' placeholder='Data Resource'>
             <input type='text' class='form-control details-field' ng-model='data.details' placeholder='Link to data'>
         </div>
     </div>
-    <div><h6>Who do they provide with data?</h6>
+    <div><h6>To whom do they provide with data?</h6>
         <div ng-repeat='data in editEntity.data_given'>
             <input type='text' class='form-control' ng-model='data.entity' typeahead='entity.name as entity.name for entity in entities | filter:{name: $viewValue} | limitTo:8' typeahead-on-select='setConnection($item, data)' ng-change='addConnection(editEntity.data_given)' placeholder='Data Resource'>
             <input type='text' class='form-control details-field' ng-model='data.details' placeholder='Link to data'>
