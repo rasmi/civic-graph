@@ -177,12 +177,16 @@ p {
 .details-field {
     padding-left: 15%;
 }
+.collaboration-spacing {
+  padding-bottom: 4%;
+}
 .edit-marker {
     position: absolute;
     padding-left: 40%;
     cursor: pointer;
     opacity: 0.6;
 }
+
 .edit-marker:hover {
     opacity: 1;
 }
