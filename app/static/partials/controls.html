@@ -1,6 +1,6 @@
 <div class='logo'>
 <img  src="static/img/civicgraphdark.png" width="100%">
-</div><br>
+</div>
 
 <div class="form-group has-feedback">
     <input type='text' ng-model='currentEntity'  typeahead='entity as entity.name for entity in entities | filter:{name: $viewValue} | limitTo:8' typeahead-on-select='selectEntity($item)' typeahead-editable='false' class='form-control' placeholder='Search'>
@@ -39,4 +39,5 @@
 is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/" target='_blank'>CC BY-SA 4.0.</a>
 Based on a work found <a href="https://github.com/microsoftny/civic-graph" target='_blank'>here.</a></p>
 <p><a ng-click='showAbout()' href=''>Learn more</a></p>
+
 

@@ -1,3 +1,7 @@
+#learnmore-space {
+  padding-top: 5%;
+}
+
 body {
     overflow:hidden;
 }
@@ -40,12 +44,14 @@ body {
     margin-left: 0.9%;
     margin-right: 1%;
     margin-top: 5%;
+    margin-bottom: 5%;
 }
 
 .caption {
     padding-left: 5px;
     color: black;
-    font-size: 16px
+    font-size: 16px;
+    font-weight: normal;
 }
 h1, h2, h3, h4, h5, h6, .caption, .captionMobile {
     font-family: 'Segoe UI', 'Frutiger', 'Frutiger Linotype', 'Dejavu Sans', 'Helvetica Neue', Arial, sans-serif;
@@ -59,6 +65,9 @@ p {
 .details-panel h6 {
   font-size: 14px;
   font-weight: bold;
+}
+.control-panel .caption {
+  font-weight: 100;
 }
 .control-panel h3 {
     margin-top: 10px;
@@ -112,16 +121,16 @@ p {
 }
 
 .For-Profit-checkbox {
-    background-color: rgb(127, 186, 0);
+    background-color: #7cbb00;
 }
 .Non-Profit-checkbox {
-    background-color: dodgerblue;
+    background-color: #00a1f1;
 }
 .Individual-checkbox {
-    background-color: orange;
+    background-color: #ffbb00;
 }
 .Government-checkbox {
-    background-color: rgb(242, 80, 34);
+    background-color: #f65314;
 }
 
 .Employment-checkbox {
@@ -177,12 +186,16 @@ p {
 .details-field {
     padding-left: 15%;
 }
+.collaboration-spacing {
+  padding-bottom: 4%;
+}
 .edit-marker {
     position: absolute;
     padding-left: 40%;
     cursor: pointer;
     opacity: 0.6;
 }
+
 .edit-marker:hover {
     opacity: 1;
 }
@@ -227,16 +240,16 @@ p {
 }
 /* CATEGORIZED NODE STYLES */
 .Individual-node {
-    fill: orange;
+    fill: #ffbb00;
 }
 .For-Profit-node {
-    fill: rgb(127, 186, 0);
+    fill: #7cbb00;
 }
 .Non-Profit-node {
-    fill: dodgerblue;
+    fill: #00a1f1;
 }
 .Government-node {
-    fill: rgb(242, 80, 34);
+    fill: #f65314;
 }
 .node text {
     fill: darkslategray;
@@ -293,9 +306,9 @@ p {
 .navButtonMob {
     position: fixed;
     left: 0px;
-    top: 0px;
-    width: 34px;
-    height: 34px;
+    top: 0%;
+    width: 50px;
+    height: 50px;
     background: none;
     border-radius: 2px;
     border: none;
@@ -369,21 +382,21 @@ p {
   0% {
     -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
-    box-shadow: 0 -0.83em 0 -0.4em green, 0 -0.83em 0 -0.42em green, 0 -0.83em 0 -0.44em green, 0 -0.83em 0 -0.46em green, 0 -0.83em 0 -0.477em green;
+    box-shadow: 0 -0.83em 0 -0.4em #7cbb00, 0 -0.83em 0 -0.42em #7cbb00, 0 -0.83em 0 -0.44em #7cbb00, 0 -0.83em 0 -0.46em #7cbb00, 0 -0.83em 0 -0.477em #7cbb00;
   }
   5%,
   95% {
-    box-shadow: 0 -0.83em 0 -0.4em red, 0 -0.83em 0 -0.42em red, 0 -0.83em 0 -0.44em red, 0 -0.83em 0 -0.46em red, 0 -0.83em 0 -0.477em red;
+    box-shadow: 0 -0.83em 0 -0.4em #f65314, 0 -0.83em 0 -0.42em #f65314, 0 -0.83em 0 -0.44em #f65314, 0 -0.83em 0 -0.46em #f65314, 0 -0.83em 0 -0.477em #f65314;
   }
   10%,
   59% {
-    box-shadow: 0 -0.83em 0 -0.4em blue, -0.087em -0.825em 0 -0.42em blue, -0.173em -0.812em 0 -0.44em blue, -0.256em -0.789em 0 -0.46em blue, -0.297em -0.775em 0 -0.477em blue;
+    box-shadow: 0 -0.83em 0 -0.4em #00a1f1, -0.087em -0.825em 0 -0.42em #00a1f1, -0.173em -0.812em 0 -0.44em #00a1f1, -0.256em -0.789em 0 -0.46em #00a1f1, -0.297em -0.775em 0 -0.477em #00a1f1;
   }
   20% {
     box-shadow: 0 -0.83em 0 -0.4em #31D446, -0.338em -0.758em 0 -0.42em #31D446, -0.555em -0.617em 0 -0.44em #31D446, -0.671em -0.488em 0 -0.46em #31D446, -0.749em -0.34em 0 -0.477em #31D446;
   }
   38% {
-    box-shadow: 0 -0.83em 0 -0.4em #FFFB21, -0.377em -0.74em 0 -0.42em #FFFB21, -0.645em -0.522em 0 -0.44em #FFFB21, -0.775em -0.297em 0 -0.46em #FFFB21, -0.82em -0.09em 0 -0.477em #FFFB21;
+    box-shadow: 0 -0.83em 0 -0.4em #ffbb00, -0.377em -0.74em 0 -0.42em #ffbb00, -0.645em -0.522em 0 -0.44em #ffbb00, -0.775em -0.297em 0 -0.46em #ffbb00, -0.82em -0.09em 0 -0.477em #ffbb00;
   }
   100% {
     -webkit-transform: rotate(360deg);
@@ -448,7 +461,7 @@ p {
 .addInfoMobile {
     border: none;
     color: white;
-    background: blue;
+    background: #00a1f1;
     right: 0;
     top: 0;
     height: 35px;
@@ -466,7 +479,7 @@ p {
 .addInfoDesktop {
     transition: opacity 0.1s linear;
     margin-top: 3px;
-    background-color: #1ea4eb;
+    background-color: #00a1f1;
     border: 2px solid white;
     text-align: center;
     vertical-align: middle;
@@ -521,6 +534,8 @@ p {
     text-align: center;
     height: 7vh;
     z-index: 3;
+    margin-bottom: 5.2%;
+    margin-top: 2.2%;
 }
 .navLogoMobileBackground{
   text-align: center;
