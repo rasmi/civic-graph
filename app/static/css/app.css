@@ -1,3 +1,7 @@
+#learnmore-space {
+  padding-top: 5%;
+}
+
 body {
     overflow:hidden;
 }
@@ -303,8 +307,8 @@ p {
     position: fixed;
     left: 0px;
     top: 0%;
-    width: 37px;
-    height: 37px;
+    width: 50px;
+    height: 50px;
     background: none;
     border-radius: 2px;
     border: none;
@@ -456,9 +460,9 @@ p {
 .addInfoMobile {
     border: none;
     color: white;
-    background: blue;
+    background: #00a1f1;
     right: 0;
-    top: 1%;
+    top: 0;
     height: 35px;
     width: 35px;
     position: fixed;
