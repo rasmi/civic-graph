@@ -117,16 +117,16 @@ p {
 }
 
 .For-Profit-checkbox {
-    background-color: rgb(127, 186, 0);
+    background-color: #7cbb00;
 }
 .Non-Profit-checkbox {
-    background-color: dodgerblue;
+    background-color: #00a1f1;
 }
 .Individual-checkbox {
-    background-color: orange;
+    background-color: #ffbb00;
 }
 .Government-checkbox {
-    background-color: rgb(242, 80, 34);
+    background-color: #f65314;
 }
 
 .Employment-checkbox {
@@ -236,16 +236,16 @@ p {
 }
 /* CATEGORIZED NODE STYLES */
 .Individual-node {
-    fill: orange;
+    fill: #ffbb00;
 }
 .For-Profit-node {
-    fill: rgb(127, 186, 0);
+    fill: #7cbb00;
 }
 .Non-Profit-node {
-    fill: dodgerblue;
+    fill: #00a1f1;
 }
 .Government-node {
-    fill: rgb(242, 80, 34);
+    fill: #f65314;
 }
 .node text {
     fill: darkslategray;
@@ -302,9 +302,9 @@ p {
 .navButtonMob {
     position: fixed;
     left: 0px;
-    top: 0px;
-    width: 34px;
-    height: 34px;
+    top: 0%;
+    width: 37px;
+    height: 37px;
     background: none;
     border-radius: 2px;
     border: none;
@@ -458,7 +458,7 @@ p {
     color: white;
     background: blue;
     right: 0;
-    top: 0;
+    top: 1%;
     height: 35px;
     width: 35px;
     position: fixed;
@@ -474,7 +474,7 @@ p {
 .addInfoDesktop {
     transition: opacity 0.1s linear;
     margin-top: 3px;
-    background-color: #1ea4eb;
+    background-color: #00a1f1;
     border: 2px solid white;
     text-align: center;
     vertical-align: middle;
@@ -529,6 +529,8 @@ p {
     text-align: center;
     height: 7vh;
     z-index: 3;
+    margin-bottom: 5.2%;
+    margin-top: 2.2%;
 }
 .navLogoMobileBackground{
   text-align: center;
