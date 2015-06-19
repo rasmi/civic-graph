@@ -202,6 +202,9 @@ p {
 .edit-form {
 
 }
+.input-group {
+  margin-bottom: 15px;
+}
 .details-field {
     padding-left: 15%;
 }
