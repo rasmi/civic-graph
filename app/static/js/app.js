@@ -38,7 +38,6 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
     $http.get('http://127.0.0.1:5000/api/entities')
         .success(function(data) {
             $scope.entities = data.nodes;
-            console.log($scope.entities);
 
              /*
                 *******
@@ -65,8 +64,6 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
             });
 
             $scope.searchItems = $scope.entities.concat(entitiesByLocation); 
-
-            console.log($scope.searchItems);
             
             /*
                 *******
@@ -116,7 +113,6 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
     }
 
     $scope.setEntity = function(entity) {
-        console.log('setting current entity!');
         $scope.currentEntity = entity;
         if ($scope.editing) {
             $scope.stopEdit();
@@ -127,7 +123,6 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
         $scope.setEntity(_.find($scope.entities, {'id': id}));
     }
     // $scope.selectEntity = function(entity) {
-    //     console.log('selectEntity function!!!!!');
     //     entity % 1 === 0 ? $scope.setEntityID(entity) : $scope.setEntity(entity);
     //     $scope.$broadcast('selectEntity');
     // };
@@ -149,7 +144,6 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
     }
 
     $scope.selectItem = function(item){
-        console.log('selectItem function!!!!!');
         if(item.type === 'location'){
             $scope.setLocation(item);
             $scope.$broadcast('selectItem');
@@ -227,31 +221,6 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
         } else {this.$apply(fn);}
     };
 }])
-
-
-
-
-
-/*
-    *******
-    *******
-    Modification
-    *******
-    *******
-*/
-
-
-
-/*
-    *******
-    *******
-    Modification
-    *******
-    *******
-*/
-
-
-
 .controller('overviewCtrl', ['$scope', function($scope) {
     $scope.categorizedEntities = {};
     _.forEach(_.keys($scope.entityTypes), function(type) {
@@ -263,7 +232,6 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
     $scope.itemsShown = _.clone($scope.itemsShownDefault);
 
     $scope.$on('entityChange', function(event) {
-        console.log('Inside here..')
         // Reset items shown in details list.
         $scope.itemsShown = _.clone($scope.itemsShownDefault);
     });
@@ -622,7 +590,6 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
             tick();
         });
         $scope.$on('selectEntity', function() {
-            console.log("selectEntity1");
             $scope.clickedEntity.entity = $scope.currentEntity;
             $scope.actions.interacted = true;
             $scope.safeApply();
@@ -638,7 +605,6 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
         */
 
         $scope.$on('selectItem', function() {
-            console.log("selectItem1")
             $scope.actions.interacted = true;
             $scope.safeApply();
             tick();
@@ -786,17 +752,12 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
         }
 
         var focus = function(entity) {
-            console.log('\n\n')
-            console.log(entity);
-            console.log($scope.currentEntity);
-            console.log('\n\n');
             if ($scope.currentEntity != entity) $scope.setEntity(entity);
             $scope.safeApply();
             focusneighbors(entity);
         }
 
         var unfocus = function(entity) {
-            console.log('inside unfocus');
             //var transitiondelay = 75;
             node
             .classed('focused', false)
@@ -874,13 +835,10 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
         var highlightLocation = function(location){
             $scope.showLicense = false;
             if($scope.clickedEntity.entity){
-                console.log('$scope.clickedEntity.entity', $scope.clickedEntity.entity);
                 unfocus($scope.clickedEntity.entity);
                 $scope.clickedEntity.entity = null;
             }
             if($scope.clickedLocation.location !== location){
-                console.log('$scope.clickedLocation.location', $scope.clickedLocation.location);
-                console.log('location', location);
                 unfocusLocation($scope.clickedLocation.location);
                 $scope.clickedLocation.location = location;
                 focusLocation(location);
@@ -891,9 +849,6 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
         }
 
         var click = function(entity) {
-            console.log('clicked!');
-            console.log($scope.currentEntity);
-            console.log($scope.clickedEntity.entity);
             $scope.showLicense = false;
 
             if($scope.clickedLocation.location) {
@@ -971,8 +926,6 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
         }
 
         // var backgroundclick = function() {
-        //     console.log('clickedEntity',$scope.clickedEntity);
-        //     console.log('clickedEntity.entity',$scope.clickedEntity.entity);
         //     if ($scope.clickedEntity.entity) {
         //         unfocus($scope.clickedEntity.entity);
         //         $scope.clickedEntity.entity = null;
@@ -986,7 +939,6 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
         node.on('dblclick', dblclick);
         svg.on('click', backgroundclick);
         $scope.$on('selectEntity', function() {
-            console.log("selectEntity2");
             dblclick($scope.currentEntity);
         })
 
@@ -1033,7 +985,6 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
         });
 
         $scope.$on('selectEntity', function(event) {
-            console.log("selectEntity3");
             click($scope.currentEntity);
         });
 
@@ -1046,7 +997,6 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
         */
 
         $scope.$on('selectItem', function(){
-            console.log('selectItem2');
             highlightLocation($scope.currentLocation); 
         });
 
@@ -1066,16 +1016,6 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
         };
     }
 }])
-
-
-
-
-
-
-
-
-
-
 .controller('mapCtrl', ['$scope', '$timeout', 'leafletData', function($scope, $timeout, leafletData) {
     $scope.switchView = function() {
         $scope.changeView('Network');
@@ -1172,5 +1112,4 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
             });
         });
     });
-
 }]);
