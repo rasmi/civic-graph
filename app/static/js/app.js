@@ -63,8 +63,9 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
                 }
             });
 
-            $scope.searchItems = $scope.entities.concat(entitiesByLocation); 
+            $scope.searchItems = entitiesByLocation.concat($scope.entities); 
             
+            console.log($scope.searchItems);
             /*
                 *******
                 *******
