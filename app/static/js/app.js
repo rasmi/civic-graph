@@ -140,18 +140,17 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
         if ($scope.editing){
             $scope.stopEdit();
         }
-        $scope.$broadcast('itemChange');
+        $scope.$broadcast('locationChange');
     }
 
     $scope.selectItem = function(item){
         if(item.type === 'location'){
             $scope.setLocation(item);
-            $scope.$broadcast('selectItem');
         }
         else{
             item % 1 === 0 ? $scope.setEntityID(item) : $scope.setEntity(item);
-            $scope.$broadcast('selectEntity');
         }
+        $scope.$broadcast('selectItem', item);
     }
 
     $scope.$on('setCurrentEntity', function(event, args){
@@ -627,13 +626,6 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
         $scope.$on('changeSizeBy', function(event, link) {
             tick();
         });
-        $scope.$on('selectEntity', function() {
-            $scope.clickedEntity.entity = $scope.currentEntity;
-            $scope.$emit('setCurrentLocation', { value: null });
-            $scope.actions.interacted = true;
-            $scope.safeApply();
-            tick();
-        });
 
         /*
             *******
@@ -643,9 +635,15 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
             *******
         */
 
-        $scope.$on('selectItem', function() {
-            $scope.clickedLocation.location = $scope.currentLocation;
-            $scope.$emit('setCurrentEntity', { value: null });
+        $scope.$on('selectItem', function(event, item) {
+            if(item.type === 'location'){
+                $scope.clickedLocation.location = $scope.currentLocation;
+                $scope.$emit('setCurrentEntity', { value: null });
+            }
+            else{
+                $scope.clickedEntity.entity = $scope.currentEntity;
+                $scope.$emit('setCurrentLocation', { value: null });
+            }
             $scope.actions.interacted = true;
             $scope.safeApply();
             tick();
@@ -979,8 +977,10 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
         node.on('click', click);
         node.on('dblclick', dblclick);
         svg.on('click', backgroundclick);
-        $scope.$on('selectEntity', function() {
-            dblclick($scope.currentEntity);
+        $scope.$on('selectItem', function(event, item) {
+            if(item.type !== 'location'){
+                dblclick($scope.currentEntity);
+            }
         })
 
         // Only show labels on top 5 most connected entities initially.
@@ -1025,10 +1025,6 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
 
         });
 
-        $scope.$on('selectEntity', function(event) {
-            click($scope.currentEntity);
-        });
-
         /*
             *******
             *******
@@ -1037,8 +1033,13 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
             *******
         */
 
-        $scope.$on('selectItem', function(){
-            highlightLocation($scope.currentLocation); 
+        $scope.$on('selectItem', function(event, item){
+            if(item.type === 'location'){
+                highlightLocation($scope.currentLocation);
+            }
+            else{
+                click($scope.currentEntity);
+            }
         });
 
         /*
@@ -1143,13 +1144,15 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
                 $scope.actions.interacted = true;
                 $scope.safeApply();
             });
-            $scope.$on('selectEntity', function() {
-                var coordinates = $scope.currentEntity.locations.length > 0 ? _.pluck($scope.currentEntity.locations, 'coordinates') : null;
-                if (coordinates.length > 0) {
-                    map.setView(coordinates[0], 11);
+            $scope.$on('selectItem', function(event, item) {
+                if(item.type !== 'location'){
+                    var coordinates = $scope.currentEntity.locations.length > 0 ? _.pluck($scope.currentEntity.locations, 'coordinates') : null;
+                    if (coordinates.length > 0) {
+                        map.setView(coordinates[0], 11);
+                    }
+                    $scope.actions.interacted = true;
+                    $scope.safeApply();
                 }
-                $scope.actions.interacted = true;
-                $scope.safeApply();
             });
         });
     });
