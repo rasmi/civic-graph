@@ -63,8 +63,8 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
                 }
             });
 
-            $scope.searchItems = entitiesByLocation.concat($scope.entities); 
-    
+            $scope.searchItems = entitiesByLocation.concat($scope.entities);
+
             /*
                 *******
                 *******
@@ -496,7 +496,9 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
         var entityFound = false;
         data.nodes.forEach(function(d) {
             var k = scale[$scope.sizeBy](d[$scope.sizeBy]);
-            if(isInsideCircle(oX, oY, d.x+offsets[d.type][0], d.y+offsets[d.type][1], 4.5*k)) {
+
+            //  Modification - Boundaries
+            if(isInsideCircle(oX, oY, Math.max(4.5*k, Math.min(width - 4.5*k, d.x+offsets[d.type][0])), Math.max(4.5*k, Math.min(height - 4.5*k, d.y+offsets[d.type][1])), 4.5*k)) {
                 $scope.$emit('setCurrentLocation', { value: null });
                 entityFound = true;
                 $scope.setEntity(d);
@@ -533,8 +535,12 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
                         if($scope.currentLocation){
                             if(d.source.name in $scope.currentLocation.dict && d.target.name in $scope.currentLocation.dict){
                                 context.beginPath()
-                                context.moveTo(d.source.x+offsets[d.source.type][0], d.source.y+offsets[d.source.type][1]);
-                                context.lineTo(d.target.x+offsets[d.target.type][0], d.target.y+offsets[d.target.type][1]); 
+
+                                //  Modification - Boundaries      var k = scale[$scope.sizeBy](d[$scope.sizeBy]);
+                                var k = scale[$scope.sizeBy]((d.source)[$scope.sizeBy]);
+                                context.moveTo(Math.max(4.5*k, Math.min(width - 4.5*k, d.source.x+offsets[d.source.type][0])), Math.max(4.5*k, Math.min(height - 4.5*k, d.source.y+offsets[d.source.type][1])));
+                                context.lineTo(Math.max(4.5*k, Math.min(width - 4.5*k, d.target.x+offsets[d.target.type][0])), Math.max(4.5*k, Math.min(height - 4.5*k, d.target.y+offsets[d.target.type][1])));
+
                                 context.strokeStyle = colors[type]['focused']
                                 context.stroke()
                                 context.closePath();
@@ -543,14 +549,18 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
                         else{
                             if (!$scope.currentEntity || d.source == $scope.currentEntity || d.target == $scope.currentEntity) {
                                 context.beginPath()
-                                context.moveTo(d.source.x+offsets[d.source.type][0], d.source.y+offsets[d.source.type][1]);
-                                context.lineTo(d.target.x+offsets[d.target.type][0], d.target.y+offsets[d.target.type][1]); 
+
+                                //  Modification - Boundaries
+                                var k = scale[$scope.sizeBy]((d.source)[$scope.sizeBy]);
+                                context.moveTo(Math.max(4.5*k, Math.min(width - 4.5*k, d.source.x+offsets[d.source.type][0])), Math.max(4.5*k, Math.min(height - 4.5*k, d.source.y+offsets[d.source.type][1])));
+                                context.lineTo(Math.max(4.5*k, Math.min(width - 4.5*k, d.target.x+offsets[d.target.type][0])), Math.max(4.5*k, Math.min(height - 4.5*k, d.target.y+offsets[d.target.type][1])));
+
                                 context.strokeStyle = colors[type]['focused']
                                 context.stroke()
                                 context.closePath();
                                 showEntities[d.source.id] = true;
                                 showEntities[d.target.id] = true;
-                            }  
+                            }
                         }
                     }
                 });
@@ -588,11 +598,15 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
                             focus = 'unfocused';
                         }
                     }
-                    
+
                     var k = scale[$scope.sizeBy](d[$scope.sizeBy]);
                     context.beginPath();
                     context.fillStyle = colors[d.type][focus];
-                    context.arc(d.x+offsets[d.type][0], d.y+offsets[d.type][1], 4.5*k, 0, 2 * Math.PI);
+
+                    //  Modification - Boundaries
+
+                    context.arc(Math.max(4.5*k, Math.min(width - 4.5*k, d.x+offsets[d.type][0])), Math.max(4.5*k, Math.min(height - 4.5*k, d.y+offsets[d.type][1])), 4.5*k, 0, 2 * Math.PI);
+
                     context.fill()
                     context.lineWidth = 1;
                     context.stroke();
@@ -600,11 +614,13 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
                 }
             });
             _.forEach(entityNames, function(d){
+                var k = scale[$scope.sizeBy](d[$scope.sizeBy]);
+
                 context.strokeStyle = 'black';
                 var name = d.nickname ? d.nickname : d.name;
                 context.font='lighter 11px Segoe UI, HelveticaNeue-Light, sans-serif-light, sans-serif';
-                context.strokeText(name, d.x+offsets[d.type][0]-name.length*2, d.y+offsets[d.type][1]+10, 100)
-            });      
+                context.strokeText(name, Math.max(4.5*k, Math.min(width - 4.5*k, d.x+offsets[d.type][0]))-name.length*2, Math.max(4.5*k, Math.min(height - 4.5*k, d.y+offsets[d.type][1]))+10, 100)
+            });
         }
         var force = d3.layout.force()
             .size([width, height])
@@ -672,7 +688,7 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
         var bounds = svg.node().getBoundingClientRect();
         var height = bounds.height;
         var width = bounds.width;
-        var offsetScale = 8;
+        var offsetScale = 6;        //  Modification - Boundaries
         var defaultnodesize = 7;
         var offsets = {
             'Individual': {'x': 1, 'y': 1},
@@ -680,9 +696,11 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
             'Non-Profit': {'x': -1, 'y': 1},
             'Government': {'x': -1, 'y': -1}
         }
+        var lowerBoundRadius = 10;  //  Modification - Boundaries
+        var upperBoundRadius = 50;  //  Modification - Boundaries
         var scale = {
-            'employees': d3.scale.sqrt().domain([10, 130000]).range([10, 50]),
-            'followers': d3.scale.sqrt().domain([10, 10000000]).range([10, 50])
+            'employees': d3.scale.sqrt().domain([10, 130000]).range([lowerBoundRadius, upperBoundRadius]),
+            'followers': d3.scale.sqrt().domain([10, 10000000]).range([lowerBoundRadius, upperBoundRadius])
         }
         var links = {};
         var force = d3.layout.force()
@@ -690,10 +708,11 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
             .nodes($scope.entities)
             .links(_.flatten(_.values($scope.connections)))
             .charge(function(d) {
-                return d.employees ? -2*scale.employees(d.employees) : -25;
+                return d.employees ? -2*scale.employees(d.employees) : -20; //  Modified to account for boundary limitations.
             })
             .linkStrength(0)
             .linkDistance(50);
+        var tickRadius;
 
         _.forEach($scope.connections, function(connections, type) {
             links[type] = svg.selectAll('.link .'+type+'-link')
@@ -723,6 +742,10 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
             _.forEach($scope.entities, function(entity) {
                 entity.x += offsets[entity.type].x*k;
                 entity.y += offsets[entity.type].y*k;
+
+                //  Modification - Boundaries
+                entity.x = Math.max(upperBoundRadius, Math.min(width - upperBoundRadius, entity.x));
+                entity.y = Math.max(upperBoundRadius, Math.min(height - upperBoundRadius, entity.y));
             });
 
             _.forEach(links, function(link, type) {
@@ -994,12 +1017,12 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
             .attr('r', function(d) {return d[sizeBy] ? scale[sizeBy](d[sizeBy]) : defaultnodesize;});
         });
         $scope.$on('toggleLink', function(event, link) {
-            console.log("ToggleLink");  
+            console.log("ToggleLink");
             links[link.name]
             .classed({'visible': link.enabled, 'hidden': !link.enabled});
         });
         $scope.$on('toggleNode', function(event, type) {
-            console.log("ToggleNode");  
+            console.log("ToggleNode");
             svg
             .selectAll('.'+type.name+'-node')
             .classed({'visible': type.enabled, 'hidden': !type.enabled});
@@ -1130,7 +1153,7 @@ angular.module('civic-graph', ['ui.bootstrap', 'leaflet-directive'])
                 $scope.setEntityID(marker.layer.options.entity_id);
                 $scope.clickedEntity.entity = $scope.currentEntity;
                 $scope.actions.interacted = true;
-                if ($scope.settingsEnabled) {$scope.toggleSettings()};
+                // if ($scope.settingsEnabled) {$scope.toggleSettings()};
                 $scope.safeApply();
             });
             map.on('click', function() {
