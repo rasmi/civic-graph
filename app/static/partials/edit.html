@@ -1,11 +1,12 @@
-<i title='Edit' ng-click='cancelEdit()' ng-hide="updating && !error" class='glyphicon glyphicon-remove cancel-edit-marker'></i>
+<i title='Edit' ng-click='cancelEdit()' ng-hide="updating && !error || mobile" class='glyphicon glyphicon-remove edit-marker'></i>
+<i title='Edit' ng-click='cancelEdit()' ng-hide="updating && !error || !mobile" class='glyphicon glyphicon-remove marker-mobile'></i>
 <div ng-if='!updating'>
 <div class='edit-title'>
     <h3 ng-if='entity.id'>Edit Information</h3>
     <h3 ng-if='!entity.id'>Add Information</h3>
 </div>
 <form class='edit-form' novalidate>
-  <div><h6>Company Name:</h6>
+  <div><h6>Entity Name<span ng-if='!($parent.$parent.editEntity.name.length > 0)'> (Required)</span>:</h6>
     <input type='text' class='form-control' ng-model='editEntity.name' placeholder='Name' required>
     <h6>Nickname:</h6>
     <input type='text' class='form-control' ng-model='editEntity.nickname' placeholder='Nickname'>
@@ -20,8 +21,8 @@
       <span class='caption'>{{influenceType}}</span>
     </div>
 
-    <h6>What type of entity?</h6>
-    
+    <h6>What type of entity?<span ng-if='!$parent.$parent.editEntity.type'> (Required)</span></h6>
+
     <div ng-repeat='(type, enabled) in entityTypes'>
       <label class="checkbox {{type+'-checkbox'}}" ng-class="{'unchecked': $parent.$parent.editEntity.type != type}" ng-model='$parent.$parent.editEntity.type' btn-radio='type' ng-change='changetype()'></label>
       <span class='caption'>{{type}}</span>
@@ -33,7 +34,7 @@
         <label class='checkbox' ng-class="{'unchecked': !category.enabled}"><input type='checkbox' ng-model='category.enabled'></label>
         <span class='caption'>{{category.name}}</label>
     </div>
-    <input type='url' class='form-control' ng-model='editEntity.url' placeholder='Website'>
+    <input type='text' class='form-control' ng-model='editEntity.url' placeholder='Website'>
     <input type='text' class='form-control' ng-model='editEntity.twitter_handle' placeholder='@Twitter'>
     <div ng-hide="editEntity.type=='Individual'">
         <h6>Number of Employees</h6>
@@ -45,28 +46,28 @@
 
     <div><h6>Collaboration</h6>
         <div ng-repeat='collaboration in editEntity.collaborations'>
-            <input type='text' class='form-control' ng-model='collaboration.entity' typeahead='entity.name as entity.name for entity in entities | filter:{name: $viewValue} | limitTo:8' typeahead-on-select='setConnection($item, collaboration)' ng-change='addConnection(editEntity.collaborations)' placeholder='Collaborator'>
+            <input type='text' class='form-control' ng-model='collaboration.entity' typeahead='entity.name as entity.name for entity in entities | filter:{name: $viewValue} | limitTo:8' typeahead-on-select='setConnection($item, collaboration)' ng-change='addConnection(editEntity.collaborations)' typeahead-editable='false' placeholder='Collaborator'>
             <input type='text' class='form-control details-field' ng-model='collaboration.details' placeholder='Collaboration details'>
         </div>
     </div>
     <div><h6>Employment</h6>
-        <input type='text' class='form-control' ng-repeat='employment in editEntity.employments' ng-model='employment.entity' typeahead='entity.name as entity.name for entity in entities | filter:{name: $viewValue} | limitTo:8' typeahead-on-select='setConnection($item, employment)' ng-change='addConnection(editEntity.employments)' placeholder='Entity'>
+        <input type='text' class='form-control' ng-repeat='employment in editEntity.employments' ng-model='employment.entity' typeahead='entity.name as entity.name for entity in entities | filter:{name: $viewValue} | limitTo:8' typeahead-on-select='setConnection($item, employment)' ng-change='addConnection(editEntity.employments)' typeahead-editable='false' placeholder='Entity'>
     </div>
     <div><h6>Related to</h6>
         <div ng-repeat='relation in editEntity.relations'>
-            <input type='text' class='form-control' ng-model='relation.entity' typeahead='entity.name as entity.name for entity in entities | filter:{name: $viewValue} | limitTo:8' typeahead-on-select='setConnection($item, relation)' ng-change='addConnection(editEntity.relations)' placeholder='Related entity'>
+            <input type='text' class='form-control' ng-model='relation.entity' typeahead='entity.name as entity.name for entity in entities | filter:{name: $viewValue} | limitTo:8' typeahead-on-select='setConnection($item, relation)' ng-change='addConnection(editEntity.relations)' typeahead-editable='false' placeholder='Related entity'>
             <input type='text' class='form-control details-field' ng-model='relation.details' placeholder='Relation details'>
         </div>
     </div>
     <div><h6>From whom do they receive data?</h6>
         <div ng-repeat='data in editEntity.data_received'>
-            <input type='text' class='form-control' ng-model='data.entity' typeahead='entity.name as entity.name for entity in entities | filter:{name: $viewValue} | limitTo:8' typeahead-on-select='setConnection($item, data)' ng-change='addConnection(editEntity.data_received)' placeholder='Data Resource'>
+            <input type='text' class='form-control' ng-model='data.entity' typeahead='entity.name as entity.name for entity in entities | filter:{name: $viewValue} | limitTo:8' typeahead-on-select='setConnection($item, data)' ng-change='addConnection(editEntity.data_received)' typeahead-editable='false' placeholder='Data Resource'>
             <input type='text' class='form-control details-field' ng-model='data.details' placeholder='Link to data'>
         </div>
     </div>
     <div><h6>To whom do they provide data?</h6>
         <div ng-repeat='data in editEntity.data_given'>
-            <input type='text' class='form-control' ng-model='data.entity' typeahead='entity.name as entity.name for entity in entities | filter:{name: $viewValue} | limitTo:8' typeahead-on-select='setConnection($item, data)' ng-change='addConnection(editEntity.data_given)' placeholder='Data Resource'>
+            <input type='text' class='form-control' ng-model='data.entity' typeahead='entity.name as entity.name for entity in entities | filter:{name: $viewValue} | limitTo:8' typeahead-on-select='setConnection($item, data)' ng-change='addConnection(editEntity.data_given)' typeahead-editable='false' placeholder='Data Resource'>
             <input type='text' class='form-control details-field' ng-model='data.details' placeholder='Link to data'>
         </div>
     </div>
@@ -135,5 +136,5 @@
     <h6>Please check your submission and try again.</h6>
 </div>
 <div class='save'>
-<button ng-hide='updating' class='btn btn-default' ng-click='save()'>Save</button>
+<button ng-disabled='!isValid()' ng-hide='updating' class='btn bluebtn' ng-click='save()'>Save</button>
 </div>

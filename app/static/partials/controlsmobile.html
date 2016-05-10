@@ -1,6 +1,5 @@
-<br>
-<div class="form-group has-feedback centerInput">
-    <input type='text' ng-model='currentEntity'  typeahead='entity as entity.name for entity in entities | filter:{name: $viewValue} | limitTo:8' typeahead-on-select='select($item)' typeahead-editable='false' class='form-control'>
+<div class="form-group searchMobile has-feedback centerInput search">
+    <input type='text' ng-model='currentEntity'  typeahead='item as item.name for item in searchItems | filter:{name: $viewValue} | limitTo:8' typeahead-on-select='selectItem($item)' typeahead-editable='false' class='form-control' placeholder='Search'>
     <i class="glyphicon glyphicon-search form-control-feedback"></i>
 </div>
 <div ng-hide="template.name =='Map'">
@@ -23,25 +22,17 @@
 </div>
 </div>
 
-<legend></legend>
+<legend class="mLegend"></legend>
 
 <h4 class="mobileTitle">Sized By
 <span ng-repeat='sizeBy in sizeBys'>
     <label class='checkbox radio' ng-class="{'unchecked': $parent.$parent.sizeBy != sizeBy.value}" ng-model='$parent.$parent.sizeBy' btn-radio='sizeBy.value' ng-change='changeSizeBy()'></label>
-    <span class='caption'>{{sizeBy.name}}</span>
+    <span class='caption'>{{sizeBy.name.replace(" Followers", "");}}</span>
 </span>
 </h4>
 
-<legend></legend>
+<legend class="mLegend"></legend>
 </div>
-<h4 class="mobileTitle">View&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-<span ng-repeat='view in views'>
-    <label class='checkbox radio'  ng-class="{'unchecked': $parent.$parent.template != view}" ng-model='$parent.$parent.template' btn-radio='view'></label>
-    <span class='caption'>{{view.name}}</span>
-</span>
-</h4>
-<legend></legend>
 
-<div  id="aboutButton">
-    <a ng-click='showAbout()' href="">Learn more</a>
-</div>
+
+

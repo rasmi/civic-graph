@@ -5,18 +5,13 @@ from database import db
 from api import update
 import json
 
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/entities')
-@cache.cached(key_prefix='entities', timeout=None)
+@app.route('/api/entities')
+@cache.memoize(timeout=None)
 def get_entities():
     return jsonify(nodes=nodes())
 
-@app.route('/connections')
-@cache.cached(key_prefix='connections', timeout=None)
+@app.route('/api/connections')
+@cache.memoize(timeout=None)
 def get_connections():
     return jsonify(connections=connections())
 
@@ -29,8 +24,8 @@ def connections():
         'Relation': relation_connections()
     }
 
-@app.route('/categories')
-@cache.cached(key_prefix='categories', timeout=None)
+@app.route('/api/categories')
+@cache.memoize(timeout=None)
 def categories():
     return jsonify(categories=[category.json() for category in Category.query.all()])
 
@@ -53,19 +48,23 @@ def employment_connections():
 def relation_connections():
     return [{'source': r.entity_id1, 'target': r.entity_id2} for r in Relation.query.all()]
 
-@app.route('/save', methods=['POST'])
+@app.route('/api/save', methods=['POST'])
 def save():
+    app.logger.debug('SAVING')
+    app.logger.debug(request.data)
     entity = None
     data = json.loads(request.data)['entity']
     if data['id']:
         entity = Entity.query.get(data['id'])
     elif data['name']:
-        entity = Entity(data['name'])
+        app.logger.debug('ADDING NEW ENTITY ' + str(data['name']))
+        entity = Entity(str(data['name']))
         db.add(entity)
         db.commit()
     if entity:
+        app.logger.debug('UPDATING ENTITY ' + entity.name)
         update(entity, data)
         cache.clear()
     else:
-        print 'NO UPDATE'
+        app.logger.debug('NO UPDATE')
     return get_entities()
